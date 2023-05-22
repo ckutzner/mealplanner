@@ -1,5 +1,6 @@
 # mealplanner
-A python utility for generating weekly meal plans from a list of your favorite recipes
+A python utility for generating weekly meal plans from lists of your favorite recipes.  
+The planner now uses four lists:  summer meals, winter meals, soups and specials (for when you are feeling fancy and have the extra time to cook a nice meal).
 
 ## Requirements
  * Python
