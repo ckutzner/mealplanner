@@ -14,11 +14,13 @@ def seasonal_recipes():
     """ Determines whether it's summer or winter, reads appropriate recipe list; depends on next_monday_date() """     
     mon = next_monday_date().month
     if mon in range(4,10):
-        recipes = open('input/summer_meals.txt', 'r').readlines()
-        return recipes
+        with open('input/summer-meals.txt', 'r') as r:
+            recipes = r.readlines()
     else: 
-        recipes= open('input/winter_meals.txt','r').readlines()
-        return recipes
+        with open('input/winter-meals.txt','r') as r: 
+            recipes = r.readlines()
+        
+    return recipes
 
 def choose_menus():
     """ Choose random menus from the recipes list """
@@ -28,7 +30,9 @@ def choose_menus():
 
 def choose_soups():
     """ Choose 2 soups from the soups list """
-    souplist = open('input/soups.txt', 'r').readlines()
+    with open('input/soups.txt', 'r') as s:
+        souplist = s.readlines()
+        
     soups = random.sample(souplist, 2)
     return soups
 
@@ -48,7 +52,9 @@ def menuplan():
     dinners = open(menufile, 'w')
 	
 	#copy preamble
-    preamble = open('templates\preamble.tex', 'r').read()
+    with open('templates\preamble.tex', 'r') as p:
+        preamble = p.read()
+
     dinners.write(preamble)    
     # the following line could be made prettier using string formatting
     dinners.write("{\\Large Menus for Calendar Week " + str(days[0].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[0].strftime("%B %d, %Y")) + " - " + str(days[6].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
