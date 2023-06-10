@@ -49,32 +49,31 @@ def menuplan():
         days.append(date)
         date += timedelta(1)
      
-    dinners = open(menufile, 'w')
-	
-	#copy preamble
-    with open('templates\preamble.tex', 'r') as p:
-        preamble = p.read()
+    with open(menufile, 'w') as meals:
+        #copy preamble
+        with open('templates\preamble.tex', 'r') as p:
+            preamble = p.read()
 
-    dinners.write(preamble)    
-    # the following line could be made prettier using string formatting
-    dinners.write("{\\Large Menus for Calendar Week " + str(days[0].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[0].strftime("%B %d, %Y")) + " - " + str(days[6].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
-    
-    for day in days: # write the menu order to a tex file
-        daystring = str("{\calligra \Large " + day.strftime("%A, %B %d %Y") + "} \\\\ \n")
-        if day.weekday() == 0 or day.weekday() == 3:
-            dinners.write(daystring + "Leftovers (or pasta) for dinner!\n\n")
-        elif day.weekday() == 2:
-            dinners.write(daystring + soups.pop(0) + "\n")
-        elif day.weekday() == 4:
-            dinners.write(daystring + "Pizza day!\n\n")
-        elif day.weekday() == 6:
-            if len(soups) > 0:
-                dinners.write(daystring + menus.pop(0) + "\\newpage\n" + "{\\Large Menus for Calendar Week " + str(days[7].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[7].strftime("%B %d, %Y")) + " - " + str(days[-1].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
+        meals.write(preamble)    
+        # the following line could be made prettier using string formatting
+        meals.write("{\\Large Menus for Calendar Week " + str(days[0].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[0].strftime("%B %d, %Y")) + " - " + str(days[6].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
+        
+        for day in days: # write the menu order to a tex file
+            daystring = str("{\calligra \Large " + day.strftime("%A, %B %d %Y") + "} \\\\ \n")
+            if day.weekday() == 0 or day.weekday() == 3:
+                meals.write(daystring + "Leftovers (or pasta) for dinner!\n\n")
+            elif day.weekday() == 2:
+                meals.write(daystring + soups.pop(0) + "\n")
+            elif day.weekday() == 4:
+                meals.write(daystring + "Pizza day!\n\n")
+            elif day.weekday() == 6:
+                if len(soups) > 0:
+                    meals.write(daystring + menus.pop(0) + "\\newpage\n" + "{\\Large Menus for Calendar Week " + str(days[7].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[7].strftime("%B %d, %Y")) + " - " + str(days[-1].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
+                else:
+                    meals.write(daystring + menus.pop(0) + "\\end{center}\n\\end{document}")
             else:
-                dinners.write(daystring + menus.pop(0) + "\\end{center}\n\\end{document}")
-        else:
-            dinners.write(daystring + menus.pop(0) + "\n")
+                meals.write(daystring + menus.pop(0) + "\n")
 
-    dinners.close()
+    #dinners.close()
 
 menuplan()
