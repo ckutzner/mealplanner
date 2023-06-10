@@ -14,11 +14,13 @@ def seasonal_recipes():
     """ Determines whether it's summer or winter, reads appropriate recipe list; depends on next_monday_date() """     
     mon = next_monday_date().month
     if mon in range(4,10):
-        recipes = open('input/summer_meals.txt', 'r').readlines()
-        return recipes
+        with open('input/summer-meals.txt', 'r') as r:
+            recipes = r.readlines()
     else: 
-        recipes= open('input/winter_meals.txt','r').readlines()
-        return recipes
+        with open('input/winter-meals.txt','r') as r: 
+            recipes = r.readlines()
+        
+    return recipes
 
 def choose_menus():
     """ Choose random menus from the recipes list """
@@ -28,7 +30,9 @@ def choose_menus():
 
 def choose_soups():
     """ Choose 2 soups from the soups list """
-    souplist = open('input/soups.txt', 'r').readlines()
+    with open('input/soups.txt', 'r') as s:
+        souplist = s.readlines()
+        
     soups = random.sample(souplist, 2)
     return soups
 
@@ -45,30 +49,29 @@ def menuplan():
         days.append(date)
         date += timedelta(1)
      
-    dinners = open(menufile, 'w')
-	
-	#copy preamble
-    preamble = open('templates\preamble.tex', 'r').read()
-    dinners.write(preamble)    
-    # the following line could be made prettier using string formatting
-    dinners.write("{\\Large Menus for Calendar Week " + str(days[0].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[0].strftime("%B %d, %Y")) + " - " + str(days[6].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
-    
-    for day in days: # write the menu order to a tex file
-        daystring = str("{\calligra \Large " + day.strftime("%A, %B %d %Y") + "} \\\\ \n")
-        if day.weekday() == 0 or day.weekday() == 3:
-            dinners.write(daystring + "Leftovers (or pasta) for dinner!\n\n")
-        elif day.weekday() == 2:
-            dinners.write(daystring + soups.pop(0) + "\n")
-        elif day.weekday() == 4:
-            dinners.write(daystring + "Pizza day!\n\n")
-        elif day.weekday() == 6:
-            if len(soups) > 0:
-                dinners.write(daystring + menus.pop(0) + "\\newpage\n" + "{\\Large Menus for Calendar Week " + str(days[7].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[7].strftime("%B %d, %Y")) + " - " + str(days[-1].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
-            else:
-                dinners.write(daystring + menus.pop(0) + "\\end{center}\n\\end{document}")
-        else:
-            dinners.write(daystring + menus.pop(0) + "\n")
+    with open(menufile, 'w') as meals:
+        #copy preamble
+        with open('templates\preamble.tex', 'r') as p:
+            preamble = p.read()
 
-    dinners.close()
+        meals.write(preamble)    
+        # the following line could be made prettier using string formatting
+        meals.write("{\\Large Menus for Calendar Week " + str(days[0].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[0].strftime("%B %d, %Y")) + " - " + str(days[6].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
+        
+        for day in days: # write the menu order to a tex file
+            daystring = str("{\calligra \Large " + day.strftime("%A, %B %d %Y") + "} \\\\ \n")
+            if day.weekday() == 0 or day.weekday() == 3:
+                meals.write(daystring + "Leftovers (or pasta) for dinner!\n\n")
+            elif day.weekday() == 2:
+                meals.write(daystring + soups.pop(0) + "\n")
+            elif day.weekday() == 4:
+                meals.write(daystring + "Pizza day!\n\n")
+            elif day.weekday() == 6:
+                if len(soups) > 0:
+                    meals.write(daystring + menus.pop(0) + "\\newpage\n" + "{\\Large Menus for Calendar Week " + str(days[7].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[7].strftime("%B %d, %Y")) + " - " + str(days[-1].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
+                else:
+                    meals.write(daystring + menus.pop(0) + "\\end{center}\n\\end{document}")
+            else:
+                meals.write(daystring + menus.pop(0) + "\n")
 
 menuplan()
