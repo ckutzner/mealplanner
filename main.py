@@ -74,6 +74,4 @@ def menuplan():
             else:
                 meals.write(daystring + menus.pop(0) + "\n")
 
-    #dinners.close()
-
 menuplan()
