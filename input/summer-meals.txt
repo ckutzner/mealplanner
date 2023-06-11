@@ -2,9 +2,9 @@ Salad
 Pizza
 Burgers; my trusty old cookbook, p. 386
 Falafel; https://example.com/falafel
-Summer Rolls; example.com/summerrolls
+Summer Rolls; https://www.example.com/summerrolls
 Chili sin carne
 Fajita
-Palak Paneer; https://another-example.club/palak-paneer
+Palak Paneer; https://another-example.com/palak-paneer
 Chop Suey
 Pasta with tomato sauce

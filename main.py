@@ -26,7 +26,17 @@ def seasonal_recipes():
 def choose_menus():
     """ Choose random menus from the recipes list """
     full_list = seasonal_recipes()
-    menus = random.sample(full_list, 6)
+    food = random.sample(full_list, 6)
+    menus = []
+    for meal in food:
+        m = meal.split('; ')
+        if len(m) > 1:
+            if urlparse(m[1]).scheme and urlparse(m[1]).netloc:
+                menus.append('\\href{{}}{{}}\n'.format(m[1], m[0]))
+            else:
+                menus.append('{}\\\\\n{}\n'.format(m[0], m[1]))
+        else: 
+            menus.append('{}\n'.format(m[0]))
     return menus
 
 def choose_soups():
