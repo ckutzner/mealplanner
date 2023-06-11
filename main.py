@@ -1,5 +1,6 @@
 import random
 from datetime import date, timedelta
+from urllib.parse import urlparse
 
 def next_monday_date():
     """ Returns the date of next monday """
