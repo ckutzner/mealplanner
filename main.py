@@ -32,11 +32,11 @@ def choose_menus():
         m = meal.split('; ')
         if len(m) > 1:
             if urlparse(m[1]).scheme and urlparse(m[1]).netloc:
-                menus.append('\\href{{}}{{}}\n'.format(m[1], m[0]))
+                menus.append('\\href{{{}}}{{{}}}\n'.format(m[1].strip(), m[0].strip()))
             else:
-                menus.append('{}\\\\\n{}\n'.format(m[0], m[1]))
+                menus.append('{}\\\\\n{{\small {}}}\n'.format(m[0].strip(), m[1].strip()))
         else: 
-            menus.append('{}\n'.format(m[0]))
+            menus.append('{}\n'.format(m[0].strip()))
     return menus
 
 def choose_soups():

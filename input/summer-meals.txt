@@ -1,10 +1,10 @@
 Salad
-Pizza
+Pizza; some note stashed somewhere in the cabinet
 Burgers; my trusty old cookbook, p. 386
 Falafel; https://example.com/falafel
 Summer Rolls; https://www.example.com/summerrolls
 Chili sin carne
-Fajita
+Fajita; example cookbook p. 28
 Palak Paneer; https://another-example.com/palak-paneer
 Chop Suey
 Pasta with tomato sauce
