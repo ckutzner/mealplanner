@@ -34,7 +34,7 @@ def choose_menus():
             if urlparse(m[1]).scheme and urlparse(m[1]).netloc:
                 menus.append('\\href{{{}}}{{{}}}\n'.format(m[1].strip(), m[0].strip()))
             else:
-                menus.append('{}\\\\\n{{\small {}}}\n'.format(m[0].strip(), m[1].strip()))
+                menus.append('{}\\\\\n{{\\small {}}}\n'.format(m[0].strip(), m[1].strip()))
         else: 
             menus.append('{}\n'.format(m[0].strip()))
     return menus
@@ -62,7 +62,7 @@ def menuplan():
      
     with open(menufile, 'w') as meals:
         #copy preamble
-        with open('templates\preamble.tex', 'r') as p:
+        with open('templates/preamble.tex', 'r') as p:
             preamble = p.read()
 
         meals.write(preamble)    
@@ -70,7 +70,7 @@ def menuplan():
         meals.write("{\\Large Menus for Calendar Week " + str(days[0].isocalendar()[1]) + "} \\\\ \n{\\small (" + str(days[0].strftime("%B %d, %Y")) + " - " + str(days[6].strftime("%B %d, %Y")) + ")}\\\\ \n ~ \\\\")
         
         for day in days: # write the menu order to a tex file
-            daystring = str("{\calligra \Large " + day.strftime("%A, %B %d %Y") + "} \\\\ \n")
+            daystring = str("{\\calligra \\Large " + day.strftime("%A, %B %d %Y") + "} \\\\ \n")
             if day.weekday() == 0 or day.weekday() == 3:
                 meals.write(daystring + "Leftovers (or pasta) for dinner!\n\n")
             elif day.weekday() == 2:
